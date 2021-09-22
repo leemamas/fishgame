@@ -1,4 +1,5 @@
 import pygame,sys
+from cannon import Cannon
 
 pygame.init()
 
@@ -9,6 +10,7 @@ bar=pygame.image.load('images/bottom-bar.png')
 
 screen=pygame.display.set_mode((1024,768))
 
+cannon = Cannon()
 
 def main():
     while 1:
@@ -19,6 +21,8 @@ def main():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 sys.exit()
+
+        cannon.display(screen)
 
         pygame.display.update()
 
