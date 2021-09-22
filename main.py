@@ -21,9 +21,20 @@ def main():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 sys.exit()
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mouse=pygame.mouse.get_pressed()
+                if mouse[0]:
+                    cannon.shot()
+
 
         cannon.display(screen)
         cannon.rotate()
+        for bullet in cannon.bulletlist:
+            bullet.display(screen)
+            if bullet.isDestory:
+                cannon.bulletlist.remove(bullet)
+
+        print(cannon.bulletlist)
 
         pygame.display.update()
 

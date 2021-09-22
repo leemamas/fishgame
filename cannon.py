@@ -11,6 +11,7 @@ class Cannon():
         # 旋转角度
         self.angle = 0
         self.rect = self.image.get_rect(center=self.pos)
+        self.bulletlist=[]
 
     def display(self,screen):
         screen.blit(self.image,self.rect)
@@ -33,3 +34,6 @@ class Cannon():
         self.image = pygame.transform.rotate(self.org_image, self.angle)
         self.rect = self.image.get_rect(center=self.pos)
 
+    def shot(self):
+        bullet=Bullet(self.pos,self.angle)
+        self.bulletlist.append(bullet)
