@@ -1,5 +1,6 @@
 import pygame,sys
 from cannon import Cannon
+from fish import Fish
 
 pygame.init()
 
@@ -11,6 +12,7 @@ bar=pygame.image.load('images/bottom-bar.png')
 screen=pygame.display.set_mode((1024,768))
 
 cannon = Cannon()
+fish=Fish()
 
 def main():
     while 1:
@@ -34,7 +36,10 @@ def main():
             if bullet.isDestory:
                 cannon.bulletlist.remove(bullet)
 
-        print(cannon.bulletlist)
+        # print(cannon.bulletlist)
+
+        fish.display(screen)
+        fish.move()
 
         pygame.display.update()
 
