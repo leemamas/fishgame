@@ -23,6 +23,7 @@ def main():
                 sys.exit()
 
         cannon.display(screen)
+        cannon.rotate()
 
         pygame.display.update()
 
