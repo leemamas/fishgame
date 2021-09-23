@@ -12,9 +12,14 @@ bar=pygame.image.load('images/bottom-bar.png')
 screen=pygame.display.set_mode((1024,768))
 
 cannon = Cannon()
-fish=Fish()
+fishlist=[]
 
 def main():
+
+    ##随机定时产生鱼，即设置一个事件定时器
+    PRODUCT_FISH_EVENT=pygame.USEREVENT+1
+    pygame.time.set_timer(PRODUCT_FISH_EVENT,1000)
+
     while 1:
 
         screen.blit(bg,(0,0))
@@ -23,6 +28,9 @@ def main():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 sys.exit()
+            if event.type==PRODUCT_FISH_EVENT:
+                fish = Fish()
+                fishlist.append(fish)
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mouse=pygame.mouse.get_pressed()
                 if mouse[0]:
@@ -37,9 +45,9 @@ def main():
                 cannon.bulletlist.remove(bullet)
 
         # print(cannon.bulletlist)
-
-        fish.display(screen)
-        fish.move()
+        for fish in fishlist:
+            fish.display(screen)
+            fish.move()
 
         pygame.display.update()
 
