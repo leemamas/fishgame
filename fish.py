@@ -3,8 +3,9 @@
 # 开发时间  ：  2021/9/23  2:49
 import pygame
 import random
-class Fish():
+class Fish(pygame.sprite.Sprite):
     def __init__(self):
+        super(Fish, self).__init__()
         self.image_all=pygame.image.load('images/fish1.png')
         self.y=0
         ###0,---》 1,<<---分别代表2个方向，随机旋转
@@ -15,8 +16,11 @@ class Fish():
         else:
             self.rect_x=1024
         self.rect_y=random.randint(0,768)
-        self.rect=(self.rect_x,self.rect_y)
-        print(self.rect)
+        self.image = self.image_all.subsurface((0, self.y, 55, 37))
+        self.rect=self.image.get_rect(center=(self.rect_x,self.rect_y))
+
+        self.isDestory=False
+        self.speed=0.5
     def display(self,screen):
         if self.y<111:
             if self.y%37==0:
@@ -34,10 +38,16 @@ class Fish():
     def move(self):
         ##0:+ 1:-
         if self.direction==0:
-            self.rect_x+=0.5
+            self.rect_x+=self.speed
+            if self.rect_x>1024:
+                self.isDestory=True
         else:
-            self.rect_x-=0.5
-        self.rect=(self.rect_x,self.rect_y)
+            self.rect_x-=self.speed
+            if self.rect_x<0:
+                self.isDestory=True
+        self.rect=self.image.get_rect(center=(self.rect_x,self.rect_y))
+
+
 
 
 

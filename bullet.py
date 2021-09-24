@@ -4,9 +4,9 @@
 
 import pygame
 import math
-class Bullet():
-    def __init__(self,pos,angle):
-
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self,pos,angle,enemtlist):
+        super(Bullet, self).__init__()
         self.image=pygame.image.load('images/bullet1.png')
         self.org_image=self.image.copy()
         self.angle=angle
@@ -20,6 +20,7 @@ class Bullet():
 
         self.speed=3
         self.isDestory=False
+        self.enemtlist=enemtlist
 
     def display(self, screen):
         screen.blit(self.image, self.rect)
@@ -34,4 +35,15 @@ class Bullet():
 
         if self.pos_y<0 or self.pos_x<0 or self.pos_x>1024:
             self.isDestory=True
+        self.attack(self.enemtlist)
 
+    def attack(self,enemtlist):
+        for enemy in enemtlist:
+            # print(enemy.rect,self.rect)
+            if pygame.sprite.collide_circle_ratio(0.5)(enemy,self):
+                enemy.isDestory=True
+                self.isDestory=True
+
+        ##子弹攻击小鱼，子弹消失，小鱼消失
+        # 先将子弹和小鱼都变成pygame的精灵类，可以使用边界碰撞判断
+        ###将要攻击的鱼作为参数传入

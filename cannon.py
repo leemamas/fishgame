@@ -34,6 +34,6 @@ class Cannon():
         self.image = pygame.transform.rotate(self.org_image, self.angle)
         self.rect = self.image.get_rect(center=self.pos)
 
-    def shot(self):
-        bullet=Bullet(self.pos,self.angle)
+    def shot(self,enemtlist):
+        bullet=Bullet(self.pos,self.angle,enemtlist)
         self.bulletlist.append(bullet)

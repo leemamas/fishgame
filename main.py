@@ -18,7 +18,7 @@ def main():
 
     ##随机定时产生鱼，即设置一个事件定时器
     PRODUCT_FISH_EVENT=pygame.USEREVENT+1
-    pygame.time.set_timer(PRODUCT_FISH_EVENT,1000)
+    pygame.time.set_timer(PRODUCT_FISH_EVENT,3000)
 
     while 1:
 
@@ -34,7 +34,8 @@ def main():
             if event.type==pygame.MOUSEBUTTONDOWN:
                 mouse=pygame.mouse.get_pressed()
                 if mouse[0]:
-                    cannon.shot()
+                    ###enemtlist就是fishlist
+                    cannon.shot(fishlist)
 
 
         cannon.display(screen)
@@ -44,11 +45,14 @@ def main():
             if bullet.isDestory:
                 cannon.bulletlist.remove(bullet)
 
-        # print(cannon.bulletlist)
+
         for fish in fishlist:
             fish.display(screen)
             fish.move()
+            if fish.isDestory:
+                fishlist.remove(fish)
 
+        print(fishlist)
         pygame.display.update()
 
 if __name__ == '__main__':
