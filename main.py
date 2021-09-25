@@ -49,6 +49,8 @@ def main():
         for fish in fishlist:
             fish.display(screen)
             fish.move()
+            if fish.isAttack:
+                fish.net.display(screen)
             if fish.isDestory:
                 fishlist.remove(fish)
 

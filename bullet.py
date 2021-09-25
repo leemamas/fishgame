@@ -4,6 +4,7 @@
 
 import pygame
 import math
+from net import Net
 class Bullet(pygame.sprite.Sprite):
     def __init__(self,pos,angle,enemtlist):
         super(Bullet, self).__init__()
@@ -40,11 +41,18 @@ class Bullet(pygame.sprite.Sprite):
     def attack(self,enemtlist):
         for enemy in enemtlist:
             # print(enemy.rect,self.rect)
-            if pygame.sprite.collide_circle_ratio(0.5)(enemy,self):
-                # enemy.isDestory=True
-                enemy.isAttack=True
-                enemy.y=148
-                self.isDestory=True
+            if not enemy.isAttack:
+                if pygame.sprite.collide_circle_ratio(0.5)(enemy,self):
+                    # enemy.isDestory=True
+                    enemy.isAttack=True
+                    enemy.y=148
+                    self.isDestory=True
+                    # 当子弹打中鱼的时生成一个网
+                    # 坐标用鱼的rect
+                    x,y,w,h=enemy.rect
+                    net=Net(((x-w/2),(y-h/2)))
+                    enemy.net=net
+
 
         ##子弹攻击小鱼，子弹消失，小鱼消失
         # 先将子弹和小鱼都变成pygame的精灵类，可以使用边界碰撞判断

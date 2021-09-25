@@ -22,6 +22,8 @@ class Fish(pygame.sprite.Sprite):
         self.isDestory=False
         self.isAttack=False
         self.speed=0.5
+        self.net=None
+
     def display(self,screen):
         if not self.isAttack:
             if self.y<111:
