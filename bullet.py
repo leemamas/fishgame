@@ -41,7 +41,9 @@ class Bullet(pygame.sprite.Sprite):
         for enemy in enemtlist:
             # print(enemy.rect,self.rect)
             if pygame.sprite.collide_circle_ratio(0.5)(enemy,self):
-                enemy.isDestory=True
+                # enemy.isDestory=True
+                enemy.isAttack=True
+                enemy.y=148
                 self.isDestory=True
 
         ##子弹攻击小鱼，子弹消失，小鱼消失

@@ -20,31 +20,43 @@ class Fish(pygame.sprite.Sprite):
         self.rect=self.image.get_rect(center=(self.rect_x,self.rect_y))
 
         self.isDestory=False
+        self.isAttack=False
         self.speed=0.5
     def display(self,screen):
-        if self.y<111:
-            if self.y%37==0:
+        if not self.isAttack:
+            if self.y<111:
+                if self.y%37==0:
 
-                self.image=self.image_all.subsurface((0,self.y,55,37))
-                ##0的时候图片正常，1的时候即镜像
-                if self.direction==1:
-                    self.image=pygame.transform.flip(self.image,True,False)
-            self.y+=0.5
-            # print(self.y)
+                    self.image=self.image_all.subsurface((0,self.y,55,37))
+                    ##0的时候图片正常，1的时候即镜像
+                    if self.direction==1:
+                        self.image=pygame.transform.flip(self.image,True,False)
+                self.y+=0.5
+                # print(self.y)
+            else:
+                self.y=0
         else:
-            self.y=0
+            if self.y<296:
+                if self.y%37==0:
+                    self.image=self.image_all.subsurface((0,self.y,55,37))
+                    if self.direction==1:
+                        self.image=pygame.transform.flip(self.image,True,False)
+                self.y+=1
+            else:
+                self.isDestory=True
         screen.blit(self.image,self.rect)
 
     def move(self):
         ##0:+ 1:-
-        if self.direction==0:
-            self.rect_x+=self.speed
-            if self.rect_x>1024:
-                self.isDestory=True
-        else:
-            self.rect_x-=self.speed
-            if self.rect_x<0:
-                self.isDestory=True
+        if not self.isAttack:
+            if self.direction==0:
+                self.rect_x+=self.speed
+                if self.rect_x>1024:
+                    self.isDestory=True
+            else:
+                self.rect_x-=self.speed
+                if self.rect_x<0:
+                    self.isDestory=True
         self.rect=self.image.get_rect(center=(self.rect_x,self.rect_y))
 
 

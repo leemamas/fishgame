@@ -52,7 +52,7 @@ def main():
             if fish.isDestory:
                 fishlist.remove(fish)
 
-        print(fishlist)
+        # print(fishlist)
         pygame.display.update()
 
 if __name__ == '__main__':
