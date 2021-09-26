@@ -1,6 +1,7 @@
 import pygame,sys
 from cannon import Cannon
 from fish import Fish
+from number import Number
 
 pygame.init()
 
@@ -12,10 +13,11 @@ bar=pygame.image.load('images/bottom-bar.png')
 screen=pygame.display.set_mode((1024,768))
 
 cannon = Cannon()
+number=Number()
 fishlist=[]
 
 def main():
-
+    score=709394
     ##随机定时产生鱼，即设置一个事件定时器
     PRODUCT_FISH_EVENT=pygame.USEREVENT+1
     pygame.time.set_timer(PRODUCT_FISH_EVENT,3000)
@@ -36,6 +38,7 @@ def main():
                 if mouse[0]:
                     ###enemtlist就是fishlist
                     cannon.shot(fishlist)
+                    score-=1
 
 
         cannon.display(screen)
@@ -55,6 +58,8 @@ def main():
                 fishlist.remove(fish)
 
         # print(fishlist)
+        number.display(screen,score)
+
         pygame.display.update()
 
 if __name__ == '__main__':
