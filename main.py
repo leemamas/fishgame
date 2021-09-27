@@ -3,6 +3,7 @@ from cannon import Cannon
 from fish import Fish
 from number import Number
 
+
 pygame.init()
 
 pygame.display.set_caption('fish')
@@ -54,6 +55,7 @@ def main():
             fish.move()
             if fish.isAttack:
                 fish.net.display(screen)
+                fish.cointext.display(screen)
             if fish.isDestory:
                 fishlist.remove(fish)
 
