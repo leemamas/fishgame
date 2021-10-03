@@ -6,6 +6,8 @@ import pygame
 import math
 from net import Net
 from coinText import Cointext
+from coin import Coin
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self,pos,angle,enemtlist):
         super(Bullet, self).__init__()
@@ -54,6 +56,7 @@ class Bullet(pygame.sprite.Sprite):
                     net=Net(((x-w/2),(y-h/2)))
                     enemy.net=net
                     enemy.cointext=Cointext(enemy.rect,enemy.reward)
+                    enemy.coin=Coin(enemy.rect)
 
 
         ##子弹攻击小鱼，子弹消失，小鱼消失

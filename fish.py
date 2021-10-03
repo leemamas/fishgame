@@ -26,6 +26,7 @@ class Fish(pygame.sprite.Sprite):
         ##设置鱼奖励分数
         self.reward=5
         self.cointext=None
+        self.coin=None
 
     def display(self,screen):
         if not self.isAttack:

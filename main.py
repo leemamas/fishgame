@@ -56,6 +56,7 @@ def main():
             if fish.isAttack:
                 fish.net.display(screen)
                 fish.cointext.display(screen)
+                fish.coin.display(screen)
             if fish.isDestory:
                 fishlist.remove(fish)
 
