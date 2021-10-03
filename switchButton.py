@@ -18,7 +18,7 @@ class SwitchButton():
         screen.blit(self.plus,self.plus_rect)
         screen.blit(self.minus,self.minus_rect)
 
-    def hit(self):
+    def hit(self,cannon):
         x,y=pygame.mouse.get_pos()
         plus_x=self.plus_rect[0]
         plus_y=self.plus_rect[1]
@@ -28,10 +28,12 @@ class SwitchButton():
         if x>=plus_x and x<=self.plus.get_width()+plus_x and y>=plus_y and y<self.plus.get_height()+plus_y:
             self.plus = pygame.image.load('images/cannon_plus_down.png')
             self.isHit = True
+            cannon.switch('plus')
 
         if x>=minus_x and x<=self.minus.get_width()+minus_x and y>=minus_y and y<self.minus.get_height()+minus_y:
             self.minus = pygame.image.load('images/cannon_minus_down.png')
             self.isHit = True
+            cannon.switch('minus')
 
 
     def back(self):

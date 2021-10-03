@@ -40,7 +40,7 @@ def main():
                 mouse=pygame.mouse.get_pressed()
                 if mouse[0]:
                     ###enemtlist就是fishlist
-                    switchButton.hit()
+                    switchButton.hit(cannon)
                     if not switchButton.isHit:
                         cannon.shot(fishlist)
                         score-=1

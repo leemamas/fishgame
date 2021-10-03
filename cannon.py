@@ -3,7 +3,8 @@ from bullet import Bullet
 
 class Cannon():
     def __init__(self):
-        self.image = pygame.image.load('images/cannon1.png')
+        self.key=1
+        self.image = pygame.image.load('images/cannon'+str(self.key)+'.png')
         self.org_image = self.image.copy()
         ##中心点
         self.pos = (555, 735)
@@ -37,3 +38,18 @@ class Cannon():
     def shot(self,enemtlist):
         bullet=Bullet(self.pos,self.angle,enemtlist)
         self.bulletlist.append(bullet)
+
+
+    def switch(self,symbol):
+        if symbol=='plus':
+            if self.key==7:
+                self.key=1
+            else:
+                self.key += 1
+        if symbol=='minus':
+            if self.key==1:
+                self.key=7
+            else:
+                self.key-=1
+        self.image = pygame.image.load('images/cannon' + str(self.key) + '.png')
+        self.org_image = self.image.copy()
