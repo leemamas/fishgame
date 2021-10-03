@@ -2,6 +2,7 @@ import pygame,sys
 from cannon import Cannon
 from fish import Fish
 from number import Number
+from switchButton import SwitchButton
 
 
 pygame.init()
@@ -16,6 +17,7 @@ screen=pygame.display.set_mode((1024,768))
 cannon = Cannon()
 number=Number()
 fishlist=[]
+switchButton=SwitchButton()
 
 def main():
     score=709394
@@ -38,8 +40,12 @@ def main():
                 mouse=pygame.mouse.get_pressed()
                 if mouse[0]:
                     ###enemtlist就是fishlist
-                    cannon.shot(fishlist)
-                    score-=1
+                    switchButton.hit()
+                    if not switchButton.isHit:
+                        cannon.shot(fishlist)
+                        score-=1
+            if event.type==pygame.MOUSEBUTTONUP:
+                switchButton.back()
 
 
         cannon.display(screen)
@@ -62,6 +68,7 @@ def main():
 
         # print(fishlist)
         number.display(screen,score)
+        switchButton.display(screen)
 
         pygame.display.update()
 
