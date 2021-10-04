@@ -9,9 +9,10 @@ from coinText import Cointext
 from coin import Coin
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self,pos,angle,enemtlist):
+    def __init__(self,pos,angle,enemtlist,shape):
         super(Bullet, self).__init__()
-        self.image=pygame.image.load('images/bullet1.png')
+        self.shape=shape
+        self.image=pygame.image.load('images/bullet'+str(self.shape)+'.png')
         self.org_image=self.image.copy()
         self.angle=angle
         self.image=pygame.transform.rotate(self.org_image,self.angle)

@@ -36,7 +36,7 @@ class Cannon():
         self.rect = self.image.get_rect(center=self.pos)
 
     def shot(self,enemtlist):
-        bullet=Bullet(self.pos,self.angle,enemtlist)
+        bullet=Bullet(self.pos,self.angle,enemtlist,self.key)
         self.bulletlist.append(bullet)
 
 
