@@ -54,7 +54,7 @@ class Bullet(pygame.sprite.Sprite):
                     # 当子弹打中鱼的时生成一个网
                     # 坐标用鱼的rect
                     x,y,w,h=enemy.rect
-                    net=Net(((x-w/2),(y-h/2)))
+                    net=Net((x,y),self.shape)
                     enemy.net=net
                     enemy.cointext=Cointext(enemy.rect,enemy.reward)
                     enemy.coin=Coin(enemy.rect)
