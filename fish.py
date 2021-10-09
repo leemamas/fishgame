@@ -3,10 +3,40 @@
 # 开发时间  ：  2021/9/23  2:49
 import pygame
 import random
+import pandas as pd
+
+data=[
+    (55,296,8,4,1),
+    (78,512,8,4,1),
+    (72,448,8,4,1),
+    (77,472,8,4,1),
+    (107,976,8,4,4),
+    (105,948,12,8,1),
+    (92,1510,10,6,1),
+    (174,1512,12,8,1),
+    (166,2196,12,8,1),
+    (178,1870,10,6,1),
+]
+cols=['width','height','space','live','speed']
+idx=list(i for i in range(1,11))
+fish=pd.DataFrame(data,columns=cols,index=idx)
+
+
+
 class Fish(pygame.sprite.Sprite):
     def __init__(self):
         super(Fish, self).__init__()
-        self.image_all=pygame.image.load('images/fish1.png')
+
+        ##随机形态
+        self.type=random.randint(1,10)
+
+        self.fish = fish
+        self.fish_w = fish.loc[self.type]['width']
+        self.fish_h=fish.loc[self.type]['height']/fish.loc[self.type]['space']
+        self.fish_l=self.fish_h*fish.loc[self.type]['live']
+        self.fish_s=fish.loc[self.type]['speed']
+
+        self.image_all=pygame.image.load('images/fish'+str(self.type)+'.png')
         self.y=0
         ###0,---》 1,<<---分别代表2个方向，随机旋转
         self.direction=random.randint(0,1)
@@ -16,12 +46,13 @@ class Fish(pygame.sprite.Sprite):
         else:
             self.rect_x=1024
         self.rect_y=random.randint(0,768)
-        self.image = self.image_all.subsurface((0, self.y, 55, 37))
+        ##这里宽高固定 设置动态的
+        self.image = self.image_all.subsurface((0, self.y, self.fish_w, self.fish_h))
         self.rect=self.image.get_rect(center=(self.rect_x,self.rect_y))
 
         self.isDestory=False
         self.isAttack=False
-        self.speed=0.5
+        self.speed=0.3
         self.net=None
         ##设置鱼奖励分数
         self.reward=5
@@ -30,24 +61,24 @@ class Fish(pygame.sprite.Sprite):
 
     def display(self,screen):
         if not self.isAttack:
-            if self.y<111:
-                if self.y%37==0:
+            if self.y<self.fish_h*(self.fish.loc[self.type]['live']-1):
+                if self.y%self.fish_h==0:
 
-                    self.image=self.image_all.subsurface((0,self.y,55,37))
+                    self.image=self.image_all.subsurface((0,self.y,self.fish_w, self.fish_h))
                     ##0的时候图片正常，1的时候即镜像
                     if self.direction==1:
                         self.image=pygame.transform.flip(self.image,True,False)
-                self.y+=0.5
+                self.y+=1*self.fish_s
                 # print(self.y)
             else:
                 self.y=0
         else:
-            if self.y<296:
-                if self.y%37==0:
-                    self.image=self.image_all.subsurface((0,self.y,55,37))
+            if self.y<self.fish.loc[self.type]['height']:
+                if self.y%self.fish_h==0:
+                    self.image=self.image_all.subsurface((0,self.y,self.fish_w, self.fish_h))
                     if self.direction==1:
                         self.image=pygame.transform.flip(self.image,True,False)
-                self.y+=1
+                self.y+=1*self.fish_s
             else:
                 self.isDestory=True
         screen.blit(self.image,self.rect)

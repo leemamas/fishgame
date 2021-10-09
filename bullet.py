@@ -49,7 +49,7 @@ class Bullet(pygame.sprite.Sprite):
                 if pygame.sprite.collide_circle_ratio(0.5)(enemy,self):
                     # enemy.isDestory=True
                     enemy.isAttack=True
-                    enemy.y=148
+                    enemy.y=enemy.fish_l
                     self.isDestory=True
                     # 当子弹打中鱼的时生成一个网
                     # 坐标用鱼的rect
