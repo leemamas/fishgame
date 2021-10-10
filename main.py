@@ -25,6 +25,9 @@ def main():
     PRODUCT_FISH_EVENT=pygame.USEREVENT+1
     pygame.time.set_timer(PRODUCT_FISH_EVENT,3000)
 
+    fps=120
+    tClock=pygame.time.Clock()
+
     while 1:
 
         screen.blit(bg,(0,0))
@@ -70,7 +73,9 @@ def main():
         number.display(screen,score)
         switchButton.display(screen)
 
+        tClock.tick(fps)
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()

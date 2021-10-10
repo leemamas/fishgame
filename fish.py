@@ -6,18 +6,18 @@ import random
 import pandas as pd
 
 data=[
-    (55,296,8,4,1),
-    (78,512,8,4,1),
-    (72,448,8,4,1),
-    (77,472,8,4,1),
-    (107,976,8,4,4),
-    (105,948,12,8,1),
-    (92,1510,10,6,1),
-    (174,1512,12,8,1),
-    (166,2196,12,8,1),
-    (178,1870,10,6,1),
+    (55,296,8,4),
+    (78,512,8,4),
+    (72,448,8,4),
+    (77,472,8,4),
+    (107,976,8,4),
+    (105,948,12,8),
+    (92,1510,10,6),
+    (174,1512,12,8),
+    (166,2196,12,8),
+    (178,1870,10,6),
 ]
-cols=['width','height','space','live','speed']
+cols=['width','height','space','live']
 idx=list(i for i in range(1,11))
 fish=pd.DataFrame(data,columns=cols,index=idx)
 
@@ -34,7 +34,6 @@ class Fish(pygame.sprite.Sprite):
         self.fish_w = fish.loc[self.type]['width']
         self.fish_h=fish.loc[self.type]['height']/fish.loc[self.type]['space']
         self.fish_l=self.fish_h*fish.loc[self.type]['live']
-        self.fish_s=fish.loc[self.type]['speed']
 
         self.image_all=pygame.image.load('images/fish'+str(self.type)+'.png')
         self.y=0
@@ -58,6 +57,8 @@ class Fish(pygame.sprite.Sprite):
         self.reward=5
         self.cointext=None
         self.coin=None
+        self.count=0
+        self.k=1
 
     def display(self,screen):
         if not self.isAttack:
@@ -68,17 +69,18 @@ class Fish(pygame.sprite.Sprite):
                     ##0的时候图片正常，1的时候即镜像
                     if self.direction==1:
                         self.image=pygame.transform.flip(self.image,True,False)
-                self.y+=1*self.fish_s
+                self.y+=1
                 # print(self.y)
             else:
                 self.y=0
         else:
-            if self.y<self.fish.loc[self.type]['height']:
-                if self.y%self.fish_h==0:
+            if self.k<4:
+                if self.count%40==0:
                     self.image=self.image_all.subsurface((0,self.y,self.fish_w, self.fish_h))
                     if self.direction==1:
                         self.image=pygame.transform.flip(self.image,True,False)
-                self.y+=1*self.fish_s
+                    self.k+=1
+                self.count+=1
             else:
                 self.isDestory=True
         screen.blit(self.image,self.rect)
