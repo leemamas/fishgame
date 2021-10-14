@@ -11,6 +11,7 @@ pygame.display.set_caption('fish')
 
 bg=pygame.image.load('images/bg.jpg')
 bar=pygame.image.load('images/bottom-bar.png')
+start_bg=pygame.image.load('images/start.jpg')
 
 screen=pygame.display.set_mode((1024,768))
 
@@ -80,6 +81,22 @@ def main():
         tClock.tick(fps)
         pygame.display.update()
 
+def start():
+    while 1:
+        screen.blit(start_bg,(0,0))
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                sys.exit()
+
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                mouse=pygame.mouse.get_pressed()
+                x,y=pygame.mouse.get_pos()
+                if mouse[0]:
+                    if x>=360 and x<=658 and y>=353 and  y<=427:
+                        main()
+
+        pygame.display.flip()
+
 
 if __name__ == '__main__':
-    main()
+    start()
