@@ -56,8 +56,9 @@ class Bullet(pygame.sprite.Sprite):
                     x,y,w,h=enemy.rect
                     net=Net((x,y),self.shape)
                     enemy.net=net
-                    enemy.cointext=Cointext(enemy.rect,enemy.reward)
+                    enemy.cointext=Cointext(enemy.rect,enemy.reward,self.shape)
                     enemy.coin=Coin(enemy.rect)
+                    enemy.bshape=self.shape
 
 
         ##子弹攻击小鱼，子弹消失，小鱼消失

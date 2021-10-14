@@ -46,7 +46,8 @@ def main():
                     switchButton.hit(cannon)
                     if not switchButton.isHit:
                         cannon.shot(fishlist)
-                        score-=1
+                        ##射击扣减根据炮弹不同。
+                        score-=cannon.key
             if event.type==pygame.MOUSEBUTTONUP:
                 switchButton.back()
 
@@ -68,6 +69,9 @@ def main():
                 fish.coin.display(screen)
             if fish.isDestory:
                 fishlist.remove(fish)
+            ##捕获鱼增加分数
+            if fish.isAttack and fish.isDestory:
+                score+=(fish.reward*fish.bshape)
 
         # print(fishlist)
         number.display(screen,score)

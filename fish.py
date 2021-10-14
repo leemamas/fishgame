@@ -6,18 +6,18 @@ import random
 import pandas as pd
 
 data=[
-    (55,296,8,4),
-    (78,512,8,4),
-    (72,448,8,4),
-    (77,472,8,4),
-    (107,976,8,4),
-    (105,948,12,8),
-    (92,1510,10,6),
-    (174,1512,12,8),
-    (166,2196,12,8),
-    (178,1870,10,6),
+    (55,296,8,4,1),
+    (78,512,8,4,3),
+    (72,448,8,4,5),
+    (77,472,8,4,8),
+    (107,976,8,4,10),
+    (105,948,12,8,20),
+    (92,1510,10,6,30),
+    (174,1512,12,8,40),
+    (166,2196,12,8,50),
+    (178,1870,10,6,100),
 ]
-cols=['width','height','space','live']
+cols=['width','height','space','live','score']
 idx=list(i for i in range(1,11))
 fish=pd.DataFrame(data,columns=cols,index=idx)
 
@@ -54,7 +54,8 @@ class Fish(pygame.sprite.Sprite):
         self.speed=0.3
         self.net=None
         ##设置鱼奖励分数
-        self.reward=5
+        self.reward= fish.loc[self.type]['score']
+        self.bshape=1
         self.cointext=None
         self.coin=None
         self.count=0
